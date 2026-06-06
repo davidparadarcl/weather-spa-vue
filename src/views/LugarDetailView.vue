@@ -84,6 +84,40 @@ const promedioSemanal = computed(() => {
                     </p>
                 </template>
 
+                <section v-if="clima && clima.daily">
+                    <h3>Estadísticas de la semana</h3>
+
+                    <p>
+                        <strong>Mínima semanal:</strong>
+                        {{ minimaSemanal }} °C
+                    </p>
+
+                    <p>
+                        <strong>Máxima semanal:</strong>
+                        {{ maximaSemanal }} °C
+                    </p>
+
+                    <p>
+                        <strong>Promedio semanal:</strong>
+                        {{ promedioSemanal }} °C
+                    </p>
+                </section>
+
+                <section v-if="clima && clima.daily">
+                    <h3>Pronóstico semanal</h3>
+
+                    <div
+                        v-for="(fecha, index) in clima.daily.time"
+                        :key="fecha"
+                    >
+                        <p>
+                            {{ fecha }}: mín
+                            {{ clima.daily.temperature_2m_min[index] }} °C / máx
+                            {{ clima.daily.temperature_2m_max[index] }} °C
+                        </p>
+                    </div>
+                </section>
+
                 <p v-if="!cargando && !clima">
                     No se pudo cargar la información climática.
                 </p>
